@@ -6,14 +6,56 @@ from selenium import webdriver
 from selenium.webdriver.support.ui import Select
 #from tkinter import *
 class Page(tk.Frame):
-    pass
+    def __init__(self, *args, **kwargs):
+        tk.Frame.__init__(self, *args, **kwargs)
+    def show(self):
+        self.lift()
 
 class Page1(Page):
    '''def save(self):
        n=name.get()
        print(n)'''
    def __init__(self, *args, **kwargs):
-       pass
+       Page.__init__(self, *args, **kwargs)
+       
+       self.name=tk.StringVar()
+       self.mail=tk.StringVar()
+       self.phn=tk.StringVar()
+       frame2=tk.Frame(self,bg="lightblue",width=1200,height=700)
+       frame2.pack()
+       lname=tk.Label(frame2,bg="lightblue",text="Name:")
+       lname.pack()
+       lname.place(x=180,y=0)
+       entry=tk.Entry(frame2,textvariable=self.name)
+       entry.pack()
+       entry.place(x=150,y=30)
+       lmail=tk.Label(frame2,bg="lightblue",text="E-Mail Id:")
+       lmail.pack()
+       lmail.place(x=180,y=60)
+       email=tk.Entry(frame2,textvariable=self.mail)
+       email.pack()
+       email.place(x=150,y=90)
+       lphn=tk.Label(frame2,bg="lightblue",text="Phone no.:")
+       lphn.pack()
+       lphn.place(x=180,y=120)
+       ephn=tk.Entry(frame2,textvariable=self.phn)
+       ephn.pack()
+       ephn.place(x=150,y=150)
+       def save():
+           n=self.name.get()
+           m=self.mail.get()
+           p=self.phn.get()
+           print(n,"\n",m,"\n",p)
+           entry.delete(0, 'end')
+           email.delete(0, 'end')
+           ephn.delete(0, 'end')
+       sav_bn=tk.Button(frame2,bg="lightblue",text="OK",command=save)
+       sav_bn.pack()
+       sav_bn.place(x=195,y=180)
+       label = tk.Label(frame2,bg="lightblue", text="Fill your details")
+       
+       label.pack(side="top", fill="both", expand=True)
+       label.place(x=170,y=270)
        
        
 class Page2(Page):
@@ -141,10 +183,43 @@ class Page2(Page):
            
 
 class Page3(Page):
-  pass
+  def __init__(self, *args, **kwargs):
+       Page.__init__(self, *args, **kwargs)
+       frame3=tk.Frame(self,bg="lightblue",width=1200,height=700)
+       frame3.pack()
+       label = tk.Label(frame3,bg="lightblue",font=("BOLD",11), text="About: Automate your bill payments with this application \n    Save your details and run the app to pay bills. \t\t\n\n\nDeveloped by:\t\t\t\t\t\nB.Abhinandan\t\t\t\t\nS.Ikshwak\t\t\t\t\nT.Abhishek\t\t\t\t\t")
+       
+       label.pack(side="top", fill="both", expand=True)
+       label.place(x=10,y=10)
 
 class MainView(tk.Frame):
-  pass
+  def __init__(self, *args, **kwargs):
+        tk.Frame.__init__(self, *args, **kwargs)
+        #self.configure(background='lightblue')
+        p1 = Page1(self)
+        p2 = Page2(self)
+        p3 = Page3(self)
+        
+
+        buttonframe = tk.Frame(self)
+        container = tk.Frame(self)
+        buttonframe.pack(side="top", fill="x", expand=False)
+        container.pack(side="top", fill="both", expand=True)
+
+        p1.place(in_=container, x=0, y=0, relwidth=1, relheight=1)
+        p2.place(in_=container, x=0, y=0, relwidth=1, relheight=1)
+        p3.place(in_=container, x=0, y=0, relwidth=1, relheight=1)
+
+        b1 = tk.Button(buttonframe, text="Add Details", command=p1.lift)
+        b2 = tk.Button(buttonframe, text="Home", command=p2.lift)
+        b3 = tk.Button(buttonframe, text="About", command=p3.lift)
+
+        b2.pack(side="left")
+        b1.pack(side="left")
+        b3.pack(side="left")
+
+        p2.show()
+
 
 if __name__ == "__main__":
     root = tk.Tk()#.config(bg="lightblue")
